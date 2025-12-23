@@ -30,7 +30,11 @@ client.on("messageCreate", async (message) => {
     },
   });
 
-  message.reply(result.output_text);
+  try {
+    await message.reply(result.output_text);
+  } catch (error) {
+    console.error("Error replying to message:", error);
+  }
 });
 
 client.login(process.env.BOT_TOKEN);
