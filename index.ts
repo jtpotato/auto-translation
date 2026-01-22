@@ -10,7 +10,7 @@ const client = new Client({
 });
 
 const openai = new OpenAI({
-  baseURL: "https://api.openai.com/v1",
+  baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENAI_KEY,
 });
 
@@ -21,13 +21,10 @@ client.once("clientReady", () => {
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   const result = await openai.responses.create({
-    model: "gpt-5-nano",
+    model: "google/gemma-3-27b-it:free",
     input:
-      "You are a translator. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English.Only output the translated message. Text:\n\n" +
+      "You are a translator. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English. Only output the translated message. Text:\n\n" +
       message.content,
-    reasoning: {
-      effort: "minimal",
-    },
   });
 
   try {
