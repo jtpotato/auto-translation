@@ -21,10 +21,11 @@ client.once("clientReady", () => {
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   const result = await openai.responses.create({
-    model: "google/gemma-3-27b-it:free",
+    model: "gpt-5-mini",
     input:
       "You are a translator. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English. Only output the translated message. Text:\n\n" +
       message.content,
+    reasoning: { effort: "minimal" },
   });
 
   try {
