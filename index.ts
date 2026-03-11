@@ -43,6 +43,9 @@ client.on("messageCreate", async (message) => {
       translationGuide +
       "\n\nText:\n" +
       message.content,
+    reasoning: {
+      effort: "minimal",
+    },
   });
 
   try {
