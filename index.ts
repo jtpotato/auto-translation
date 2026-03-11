@@ -37,13 +37,12 @@ const translationGuide = `堂主 - temple guardian
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   const result = await openai.responses.create({
-    model: "gpt-5-mini",
+    model: "qwen/qwen3.5-flash-02-23",
     input:
       "You are a translator. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English. Only output the translated message. Adhere to the given translations in this guide - you may encounter text in its traditional form, which is equivalent to the simplified form:\n" +
       translationGuide +
       "\n\nText:\n" +
       message.content,
-    reasoning: { effort: "minimal" },
   });
 
   try {
