@@ -18,12 +18,31 @@ client.once("clientReady", () => {
   console.log(`Logged in as ${client.user?.tag}!`);
 });
 
+const translationGuide = `中文	English
+堂主	temple guardian
+区长	group leader
+人才	coordinator
+道亲	Daokin
+佛堂	prayer hall
+班期	schedule
+礼节	propriety
+点佛灯	lighting holy lamps
+献供	present offerings
+庆祝	celebration
+办道	blessing
+三宝	3 treasures
+结缘	sermon
+表文	dragon scroll
+讲圆	speaker`;
+
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   const result = await openai.responses.create({
     model: "gpt-5-mini",
     input:
-      "You are a translator. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English. Only output the translated message. Text:\n\n" +
+      "You are a translator. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English. Only output the translated message. Consult this translation guide:\n" +
+      translationGuide +
+      "\n\nText:\n" +
       message.content,
     reasoning: { effort: "minimal" },
   });
