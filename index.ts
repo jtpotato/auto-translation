@@ -32,14 +32,17 @@ const translationGuide = `堂主 - temple guardian
 三宝 - 3 treasures
 结缘 - sermon
 表文 - dragon scroll
-讲圆 - speaker`;
+讲圆 - speaker
+天帝 - Tiandi
+弥勒道场 - MLDC
+后学 - me`;
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   const result = await openai.responses.create({
     model: "openai/gpt-5.4-nano",
     input:
-      "You are a translator. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English. Only output the translated message. Adhere to the given translations in this guide - you may encounter text in its traditional form, which is equivalent to the simplified form, or you may encounter typos that are phonetically similar:\n" +
+      "You are a translator. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English. Only output the translated message. Adhere to the given translations in this guide - you may encounter text in its traditional form, which is equivalent to the simplified form, or you may encounter typos that are phonetically similar. Do not translate names - transliterate only, out of respect.\n" +
       translationGuide +
       "\n\nText:\n" +
       message.content,
