@@ -49,7 +49,19 @@ client.on("messageCreate", async (message) => {
   });
 
   try {
-    await message.reply(result.output_text);
+    // If the translation is too long, it may exceed Discord's message character limit. In that case, we can split the message into multiple parts and send them separately.
+    const maxLength = 2000; // Discord's message character limit
+    if (result.output_text.length > maxLength) {
+      const parts = [];
+      for (let i = 0; i < result.output_text.length; i += maxLength) {
+        parts.push(result.output_text.slice(i, i + maxLength));
+      }
+      for (const part of parts) {
+        await message.reply(part);
+      }
+    } else {
+      await message.reply(result.output_text);
+    }
   } catch (error) {
     console.error("Error replying to message:", error);
   }
