@@ -35,7 +35,7 @@ const translationGuide = `堂主 - temple guardian
 讲圆 - speaker
 天帝 - Tiandi
 弥勒道场 - MLDC
-后学 - me`;
+后学 - I/me (first person pronoun, use whichever form is appropriate))`;
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
