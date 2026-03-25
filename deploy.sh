@@ -20,7 +20,6 @@ echo "==> Starting new container..."
 docker run -d \
   --name "$APP_NAME" \
   --restart unless-stopped \
-  # -p "$HOST_PORT:$CONTAINER_PORT" \
   "$IMAGE_NAME"
 
 echo "==> Cleaning up dangling images..."
