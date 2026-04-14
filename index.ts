@@ -39,10 +39,12 @@ const translationGuide = `堂主 - temple guardian
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
+  // check message empty
+  if (!message.content.trim()) return;
   const result = await openai.responses.create({
     model: "openai/gpt-5.4-nano",
     input:
-      "You are a translator. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English. Only output the translated message. Adhere to the given translations in this guide - you may encounter text in its traditional form, which is equivalent to the simplified form, or you may encounter typos that are phonetically similar. Do not translate names - transliterate only, out of respect.\n" +
+      "You are a translator that flips text from English to Chinese or Chinese to English. If the text is in English, translate it to Mandarin Chinese. If the text is in Mandarin Chinese, translate it to English. Only output the translated message. Adhere to the given translations in this guide - you may encounter text in its traditional form, which is equivalent to the simplified form, or you may encounter typos that are phonetically similar. Do not translate names - transliterate only.\n" +
       translationGuide +
       "\n\nText:\n" +
       message.content,
