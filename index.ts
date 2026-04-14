@@ -55,7 +55,8 @@ client.on("messageCreate", async (message) => {
 
   try {
     // If the translation is too long, it may exceed Discord's message character limit. In that case, we can split the message into multiple parts and send them separately.
-    const maxLength = 2000; // Discord's message character limit
+    const maxLength = 1800; // Discord's message character limit, minus some buffer.
+
     if (result.output_text.length > maxLength) {
       const parts = [];
       for (let i = 0; i < result.output_text.length; i += maxLength) {
@@ -64,9 +65,18 @@ client.on("messageCreate", async (message) => {
       for (const part of parts) {
         await message.reply(part);
       }
-    } else {
-      await message.reply(result.output_text);
+
+      await message.reply(
+        "-# This message has been translated by a language model. There may be some inaccuracies. | 这条消息是由语言模型翻译的。可能会有一些不准确之处。",
+      );
+
+      return;
     }
+
+    await message.reply(
+      result.output_text +
+        "\n\n-# This message has been translated by a language model. There may be some inaccuracies. | 这条消息是由语言模型翻译的。可能会有一些不准确之处。",
+    );
   } catch (error) {
     console.error("Error replying to message:", error);
   }
